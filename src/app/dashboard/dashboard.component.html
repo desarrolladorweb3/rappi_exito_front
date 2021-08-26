@@ -1,0 +1,77 @@
+
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row" *ngIf="!envio_exitoso">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header card-header-light report-card">
+                        <h5 class="card-title">Antes de cargar el archivo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <p class="card-text">Recuerda utilizar el formato CSV especificado por el departamento de desarrollo web. <br>Si no tienes el formato puedes descargarlo dando clic en el botón "Descargar formato": </p>
+                            <a href="http://mesadeservicio.croydon.com.co/vista/img/pqr_solicitud/formato-rappi-exito.csv"  target="_blank" class="btn btn-success">Descargar Formato</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <div class="card-header card-header-light report-card">
+                        <h5 class="card-title">Carga tu archivo aquí</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group file-area text-center">
+                            <label for="images"> <span>Escoja el archivo con la data cargada</span>
+                                <input type="file" accept=".csv" (change)="onFileChange($event)" [(ngModel)]="archivo" name="images" id="images" required="required" />
+                                <div class="file-dummy">
+                                    <div class="success">Bien, el archivo ha sido seleccionado, ahora da clic en enviar y espera un momento mientras se procesa la información.</div>
+                                    <div class="default">Haz clic aquí</div>
+                                </div>
+                            </label>
+                          </div>
+                        <button class="btn btn-light text-croydon" (click)="uploadFile()" [disabled]="disabled">Enviar</button><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="envio_exitoso">
+            <div class="card">
+                <div class="card-header card-header-success report-card">
+                    <button (click)="refresh()" class="btn btn-light pull-right">Realizar un nuevo cargue</button>
+                    <h4 class="card-title">Reporte de ejecución</h4>
+                    <p class="card-category pull-left">Para realizar un nuevo cargue de clic en el botón "Realizar un nuevo cargue":</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <div class="col-12" *ngIf="veces_notificado == 0">
+                        <div> {{ notificarEspera() }} </div>
+                    </div>
+                    <table id="tabla-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
+                        <thead>
+                            <tr>
+                                <th>Número de orden</th>
+                                <th>Resultado</th>
+                                <th>Cantidad de Items</th>
+                                <th>Factura generada</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>223259512</td>
+                                <td>Exitoso</td>
+                                <td>3</td>
+                                <td>0233615</td>
+                                <td><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
+                                <div class="col-12">
+                                    <div> {{ getDataTable() }} </div>
+                                </div>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
