@@ -13,7 +13,10 @@ export class ServiceService {
   headers_media = new HttpHeaders({'Content-Type': 'multipart/form-data; boundary=something'});
   constructor(private http: HttpClient) { }
 
-  uploadFile(theFile: FileToUpload) : Observable<any> {
-      return this.http.post<FileToUpload>(this.urlClient + 'MarketPlace/generateInvoice', theFile, {headers: this.headers_media});
+  uploadFile(theFile: File) : Observable<Response[]> {
+    const formData: FormData = new FormData();
+    formData.append('fileKey', theFile, theFile.name);
+    return this.http.post<Response[]>(this.urlClient + 'MarketPlace/generateInvoice', formData);
   }
+
 }

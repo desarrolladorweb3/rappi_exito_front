@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   envio_exitoso = false;
   estado_tabla = false;
   dtOptions: any = {};
+  response: Response[];
   constructor(private apiClient: ServiceService) { }
   ngOnInit() {
     this.dtOptions = {
@@ -88,10 +89,11 @@ export class DashboardComponent implements OnInit {
     reader.onload = () => {
         // Store base64 encoded representation of file
         file.fileAsBase64 = reader.result.toString();
-        
         // POST to server
-        this.apiClient.uploadFile(file).subscribe((resp) => { 
-            console.log(resp); });
+        this.apiClient.uploadFile(theFile).subscribe((res)=> {
+          this.response = res;
+          // console.log(res);
+        });
     }
     
     // Read the file

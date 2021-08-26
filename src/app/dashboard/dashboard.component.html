@@ -50,21 +50,31 @@
                     <table id="tabla-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
                         <thead>
                             <tr>
-                                <th>Número de orden</th>
-                                <th>Resultado</th>
-                                <th>Cantidad de Items</th>
-                                <th>Factura generada</th>
+                                <th>Estado</th>
+                                <th>Orden MP</th>
+                                <th># Pedido</th>
+                                <th># Factura</th>
+                                <th>Mensaje</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>223259512</td>
-                                <td>Exitoso</td>
-                                <td>3</td>
-                                <td>0233615</td>
-                                <td><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
-                                <div class="col-12">
+                            <tr *ngFor="let order of response; let last = last">
+                                <!-- --------------- Fallidos ------------------------------ -->
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.InvoiceGenerate }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.order.order_number }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.orderNumber }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.Message }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate"><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
+                                <!-- ------------- Exitosos ------------------------ -->
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.InvoiceGenerate }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.order.order_number }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.orderNumber }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.Message }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate"><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
+                                <div class="col-12" *ngIf="last">
                                     <div> {{ getDataTable() }} </div>
                                 </div>
                             </tr>
