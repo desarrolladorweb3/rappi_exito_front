@@ -48,7 +48,7 @@ export class CargaMasivaEmpleadoComponent implements OnInit {
         file.fileAsBase64 = reader.result.toString();
         
         // POST to server
-        this.apiClient.uploadFile(file).subscribe(resp => { 
+        this.apiClient.uploadFile(theFile).subscribe(resp => { 
             console.log(this.messages.push("Archivo subido exitosamente!")); });
     }
     
