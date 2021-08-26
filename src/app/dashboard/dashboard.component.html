@@ -66,14 +66,14 @@
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.orderNumber }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.Message }}</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate"><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate"><button class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" (click)="verDetalle(order.order)">Ver detalle</button></td>
                                 <!-- ------------- Exitosos ------------------------ -->
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.InvoiceGenerate }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.order.order_number }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.orderNumber }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.Message }}</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate"><button class="btn btn-info" (click)="verDetalle()">Ver detalle</button></td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate"><button class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" (click)="verDetalle(order.order)">Ver detalle</button></td>
                                 <div class="col-12" *ngIf="last">
                                     <div> {{ getDataTable() }} </div>
                                 </div>
@@ -82,6 +82,36 @@
                     </table>
                 </div>
             </div>   
+        </div>
+    </div>
+</div>
+
+<div id="modal_consulta_detalle_orden" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header report-card">
+                <h4 class="modal-title text-white">Detalle</h4>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div id="cabecera-formulario-detalle-orden"></div>
+                    <table id="tabla-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
+                        <thead>
+                            <tr>
+                                <th>Articulo</th>
+                                <th>Cant. solicitada</th>
+                                <th>Cant. disponible</th>
+                                <th>Valor unitario</th>
+                            </tr>
+                        </thead>
+                        <tbody id="formulario-modal-detalle-orden">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>

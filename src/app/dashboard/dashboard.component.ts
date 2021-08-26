@@ -3,6 +3,7 @@ import { NotificationsComponent } from 'app/notifications/notifications.componen
 import { FileToUpload } from 'app/file-upload/file-to-upload';
 import {ServiceService} from '../components/api/service.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; 
+import Order = OrderResponse.Order;
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit {
   archivo: any;
   envio_exitoso = false;
   estado_tabla = false;
+  mensaje_detalle_orden:string = "";
   dtOptions: any = {};
   response: Response[];
   constructor(private apiClient: ServiceService) { }
@@ -118,7 +120,12 @@ export class DashboardComponent implements OnInit {
     location.reload();
   }
 
-  verDetalle(){
-    
+  verDetalle(orden : Order){
+    $("#cabecera-formulario-detalle-orden").html("<p>Cliente: " + orden.name + "<br>Valor total: " + orden.total_price + "</p>");
+    this.mensaje_detalle_orden = '';
+    for (let i = 0; i < orden.orderItems.length; i++) {
+      this.mensaje_detalle_orden = this.mensaje_detalle_orden + "<tr> <td>" + orden.orderItems[i].sku + "</td> <td>" + orden.orderItems[i].qty + "</td> <td>" + orden.orderItems[i].qty_aviable + "</td> <td> $" + orden.orderItems[i].unit_price.toLocaleString(); + "</td> </tr>";
+    }
+    $("#formulario-modal-detalle-orden").html(this.mensaje_detalle_orden);
   }
 }
