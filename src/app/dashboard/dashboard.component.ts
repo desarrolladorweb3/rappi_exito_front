@@ -121,10 +121,10 @@ export class DashboardComponent implements OnInit {
   }
 
   verDetalle(orden : Order){
-    $("#cabecera-formulario-detalle-orden").html("<p>Cliente: " + orden.name + "<br>Valor total: " + orden.total_price + "</p>");
+    $("#cabecera-formulario-detalle-orden").html("<p class='text-uppercase'>Número de orden: " + orden.order_number + "<br>Cliente: " + orden.name + "<br>¿Es rappi tendero?: " + orden.isRapiTendero + "<br>Valor total: $" + orden.total_price.toLocaleString() + "</p>");
     this.mensaje_detalle_orden = '';
     for (let i = 0; i < orden.orderItems.length; i++) {
-      this.mensaje_detalle_orden = this.mensaje_detalle_orden + "<tr> <td>" + orden.orderItems[i].sku + "</td> <td>" + orden.orderItems[i].qty + "</td> <td>" + orden.orderItems[i].qty_aviable + "</td> <td> $" + orden.orderItems[i].unit_price.toLocaleString(); + "</td> </tr>";
+      this.mensaje_detalle_orden = this.mensaje_detalle_orden + "<tr> <td>" + orden.orderItems[i].sku + "</td> <td>" + orden.orderItems[i].qty + "</td> <td>" + orden.orderItems[i].qty_aviable + "</td> <td> $" + orden.orderItems[i].unit_price.toLocaleString() + "</td> </tr>";
     }
     $("#formulario-modal-detalle-orden").html(this.mensaje_detalle_orden);
   }

@@ -61,14 +61,14 @@
                         <tbody>
                             <tr *ngFor="let order of response; let last = last">
                                 <!-- --------------- Fallidos ------------------------------ -->
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.InvoiceGenerate }}</td>
+                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">Fallido</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.order.order_number }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.orderNumber }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.Message }}</td>
                                 <td class="table-danger" *ngIf="!order.InvoiceGenerate"><button class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" (click)="verDetalle(order.order)">Ver detalle</button></td>
                                 <!-- ------------- Exitosos ------------------------ -->
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.InvoiceGenerate }}</td>
+                                <td class="table-success" *ngIf="order.InvoiceGenerate">Exitoso</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.order.order_number }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.orderNumber }}</td>
                                 <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
@@ -95,7 +95,7 @@
             <div class="modal-body">
                 <div class="box-body">
                     <div id="cabecera-formulario-detalle-orden"></div>
-                    <table id="tabla-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
+                    <table id="tabla-detalle-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
                         <thead>
                             <tr>
                                 <th>Articulo</th>
