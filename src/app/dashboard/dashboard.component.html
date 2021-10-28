@@ -60,20 +60,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let order of response; let last = last">
-                                <!-- --------------- Fallidos ------------------------------ -->
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">Fallido</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.order.order_number }}</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.orderNumber }}</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate">{{ order.Message }}</td>
-                                <td class="table-danger" *ngIf="!order.InvoiceGenerate"><button class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" (click)="verDetalle(order.order)">Ver detalle</button></td>
-                                <!-- ------------- Exitosos ------------------------ -->
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">Exitoso</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.order.order_number }}</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.orderNumber }}</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.invoiceNumber }}</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate">{{ order.Message }}</td>
-                                <td class="table-success" *ngIf="order.InvoiceGenerate"><button class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" (click)="verDetalle(order.order)">Ver detalle</button></td>
+                                <td class="table-{{colorRow}}">{{getRealValueStatus(order.InvoiceGenerate, order.order)}} {{setExistSuccessOrder(order.InvoiceGenerate)}} {{statusName}}</td>
+                                <td class="table-{{colorRow}}">{{ order.order.order_number }}</td>
+                                <td class="table-{{colorRow}}">{{ order.orderNumber }}</td>
+                                <td class="table-{{colorRow}}">{{ order.invoiceNumber }}</td>
+                                <td class="table-{{colorRow}}">{{ order.Message }}</td>
+                                <td class="table-{{colorRow}}" (click)="verDetalle(order.order)"><a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal_consulta_detalle_orden" >Ver detalle</a></td>
                                 <div class="col-12" *ngIf="last">
                                     <div> {{ getDataTable() }} </div>
                                 </div>
@@ -81,12 +73,12 @@
                         </tbody>
                     </table>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 </div>
 
-<div id="modal_consulta_detalle_orden" class="modal fade" role="dialog">
+<div *ngIf="modal_ver_detalle" id="modal_consulta_detalle_orden" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header report-card">
@@ -94,7 +86,12 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <div id="cabecera-formulario-detalle-orden"></div>
+                    <p class='text-uppercase'>
+                        Número de orden: {{myOrder.order_number}}<br>
+                        Cliente: {{myOrder.name}} myOrder.last_name<br>
+                        ¿Es rappi tendero?: {{myOrder.isRapiTendero}}<br>
+                        Valor total: ${{myOrder.total_price.toLocaleString()}}
+                    </p>
                     <table id="tabla-detalle-reporte-ejecucion" class="table table-bordered table-striped row-border hover">
                         <thead>
                             <tr>
@@ -105,6 +102,12 @@
                             </tr>
                         </thead>
                         <tbody id="formulario-modal-detalle-orden">
+                            <tr *ngFor="let item of myOrder.orderItems; let last = last">
+                                <td>{{item.sku}}</td>
+                                <td>{{item.qty}}</td>
+                                <td>{{item.qty_aviable}}</td>
+                                <td>${{item.unit_price.toLocaleString()}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
